@@ -31,6 +31,7 @@ For example::
 import operator
 import os
 import re
+import shlex
 import subprocess
 import tempfile
 from functools import reduce
@@ -266,7 +267,7 @@ class Boxer:
             cmd = [binary] + args
             p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         else:
-            cmd = 'echo "{}" | {} {}'.format(input_str, binary, " ".join(args))
+            cmd = 'echo {} | {} {}'.format(shlex.quote(input_str), binary, " ".join(args))
             p = subprocess.Popen(
                 cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True
             )
